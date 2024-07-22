@@ -2,6 +2,7 @@
 #define _LIST_APP_H
 #include <stdio.h>
 #include "ev3api.h"
+#include "app.h"
 
 extern void commn_settings();
 

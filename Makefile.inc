@@ -4,6 +4,6 @@ APPL_COBJS +=\
 list_api.o\
 
 APPL_LIBS += -lm
-APPL_DIRS += 
+APPL_DIRS += $(mkfile_path)
 INCLUDES += \
-
+    -I$(mkfile_path)

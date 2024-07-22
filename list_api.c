@@ -2,6 +2,7 @@
 #include "list_api.h"
 #include "app.h"
 
+
 /* センサ及びモーターの共通API定義 
    本関数は、固定となる。*/
 void commn_settings() {
@@ -15,5 +16,6 @@ void commn_settings() {
     ev3_motor_config(arm_motor     ,LARGE_MOTOR);
     ev3_motor_config(left_motor    ,MEDIUM_MOTOR);
     ev3_motor_config(right_motor   ,MEDIUM_MOTOR);
+    
 }
 
