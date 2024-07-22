@@ -1,6 +1,8 @@
 #include <stdio.h>
-#include "list_api.h"
 #include "app.h"
+#include "ev3api.h"
+#include "color_sensor.h"
+#include "port_settings.h"
 
 
 /* センサ及びモーターの共通API定義 

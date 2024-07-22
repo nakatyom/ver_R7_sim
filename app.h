@@ -2,7 +2,8 @@
 extern "C" {
 #endif
 #include "ev3api.h"
-#include "list_api.h"
+#include "color_sensor.h"
+#include "port_settings.h"
 #include <stdio.h>
 
 /* タスク優先度 */
@@ -22,10 +23,6 @@ extern "C" {
 extern void main_task(intptr_t exinf);
 extern void naka_task(intptr_t exinf);
 
-extern uint8_t ambval;
-extern int colval;
-extern uint8_t refval;
-extern rgb_raw_t rgb_val;
 
 #endif /* TOPPERS_MACRO_ONLY */
 

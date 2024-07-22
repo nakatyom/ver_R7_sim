@@ -1,8 +1,9 @@
-#ifndef _LIST_APP_H
-#define _LIST_APP_H
+#ifndef _PORT_SETTINGS_H
+#define _PORT_SETTINGS_H
 #include <stdio.h>
 #include "ev3api.h"
 #include "app.h"
+#include "color_sensor.h"
 
 extern void commn_settings();
 
@@ -20,4 +21,4 @@ static const motor_port_t
     right_motor     = EV3_PORT_B;
 
     
-#endif	// _LIST_APP_H
+#endif	// _PORT_SETTINGS_H
