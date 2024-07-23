@@ -3,7 +3,6 @@ extern "C" {
 #endif
 
 #include "ev3api.h"
-#include "list_api.c"
 
 // タスク優先度 
 #define MAIN_PRIORITY    (TMIN_APP_TPRI + 1) /* メインタスク */
@@ -15,6 +14,19 @@ extern "C" {
 #define LINE_TRACER_PERIOD  (100 * 1000) /* ライントレースタスク:100msec周期 */
 #define MOTORLOG_PERIOD  (1000 * 1000) //モーターAPIのログタスク:1000msec周期
 #define GOETROBO_PERIOD (100 * 1000) //モーター駆動タスク:100msec周期
+
+/* センサーポートの定義 */
+static const sensor_port_t
+    touch_sensor    = EV3_PORT_1,
+    color_sensor    = EV3_PORT_2,
+    sonar_sensor    = EV3_PORT_3,
+    gyro_sensor     = EV3_PORT_4;
+
+/* モーターポートの定義 */
+static const motor_port_t
+    arm_motor       = EV3_PORT_A,
+    left_motor      = EV3_PORT_C,
+    right_motor     = EV3_PORT_B;
 
 #ifndef STACK_SIZE
 #define STACK_SIZE      (4096)

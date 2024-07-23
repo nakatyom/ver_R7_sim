@@ -1,9 +1,7 @@
 mkfile_path := $(dir $(lastword $(MAKEFILE_LIST)))
 
-APPL_COBJS +=\
-list_api.o\
+APPL_COBJS += zoudatest/motor_test.o
 
 APPL_LIBS += -lm
-APPL_DIRS += $(mkfile_path)
-INCLUDES += \
-    -I$(mkfile_path)
+APPL_DIRS += zoudatest
+INCLUDES += zoudatest
