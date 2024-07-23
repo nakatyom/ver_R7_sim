@@ -4,6 +4,7 @@
 #include "ev3api.h"
 #include "app.h"
 #include "color_sensor.h"
+#include "ultrasonic_sensor.h"
 
 extern void commn_settings();
 

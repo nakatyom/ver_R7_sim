@@ -4,6 +4,8 @@ extern "C" {
 #include "ev3api.h"
 #include "color_sensor.h"
 #include "port_settings.h"
+#include "ultrasonic_sensor.h"
+#include "gyro_sensor.h"
 #include <stdio.h>
 
 /* タスク優先度 */

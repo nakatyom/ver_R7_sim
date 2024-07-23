@@ -3,6 +3,8 @@
 #include "ev3api.h"
 #include "color_sensor.h"
 #include "port_settings.h"
+#include "ultrasonic_sensor.h"
+#include "gyro_sensor.h"
 
 
 /* メインタスク(起動時にのみ関数コールされる) */
@@ -23,13 +25,30 @@ void main_task(intptr_t unused) {
 }
 
 
-
+uint8_t cnt;
 void naka_task(intptr_t unused){
     
-    /* 左右モータ駆動パワーの設定 */
-    ev3_motor_set_power(left_motor, 10);
-    ev3_motor_set_power(right_motor, 10);
+    cnt = cnt + 1; 
+    if (cnt >= 250) {
+        cnt = 0;
+        drv_gyro_reset();
+    }
+    printf("Main counter:%d\n",cnt);
 
-    drv_color_sensor();
+    /* 左右モータ駆動パワーの設定 */
+    ev3_motor_set_power(left_motor, -90);
+    ev3_motor_set_power(right_motor, 90);
+
+    // カラーセンサのテスト関数
+    //drv_color_sensor();
+    
+    // 共通センサのget関数
+    //get_commn_sensor_settings();
+    
+    // 超音波センサのテスト関数
+    //drv_get_ultrasonic();
+
+    // ジャイロセンサのテスト関数
+    //drv_gyro_sensor();
 
 }
