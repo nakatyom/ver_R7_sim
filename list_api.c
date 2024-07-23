@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include "list_api.h"
-#include "app.h"
+//#include "app.h"
 
 
 /* センサ及びモーターの共通API定義 
