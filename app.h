@@ -15,18 +15,21 @@ extern "C" {
 #define MOTORLOG_PERIOD  (1000 * 1000) //モーターAPIのログタスク:1000msec周期
 #define GOETROBO_PERIOD (100 * 1000) //モーター駆動タスク:100msec周期
 
+#ifdef __port_def
+#define __port_def
 /* センサーポートの定義 */
-static const sensor_port_t
+extern const sensor_port_t
     touch_sensor    = EV3_PORT_1,
     color_sensor    = EV3_PORT_2,
     sonar_sensor    = EV3_PORT_3,
     gyro_sensor     = EV3_PORT_4;
 
 /* モーターポートの定義 */
-static const motor_port_t
+extern const motor_port_t
     arm_motor       = EV3_PORT_A,
     left_motor      = EV3_PORT_C,
     right_motor     = EV3_PORT_B;
+#endif
 
 #ifndef STACK_SIZE
 #define STACK_SIZE      (4096)

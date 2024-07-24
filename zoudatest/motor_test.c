@@ -2,6 +2,7 @@
 
 #include "ev3api.h"
 //#include "etroboc_ext.h"
+#include "app.h"
 
 #include <stdio.h>
 
@@ -28,13 +29,13 @@ void goetrobo(){
     //モーターの出力設定
     int set_lpower, set_rpower;
     switch(i){
-        case 1 : set_lpower = 10; set_rpower = 10; i=1; break;
+        case 1 : set_lpower = 10; set_rpower = 10; i++; break;
         case 2 : set_lpower = 5; set_rpower = 10; i++; break;
         case 3 : set_lpower = 0; i++; set_rpower = 10; break;
         case 4 : set_lpower = -10; set_rpower = 10; i++; break;
         case 5 : set_lpower = 0; set_rpower = 0; i++; break;
         case 6 : set_lpower = 10; set_rpower = 5; i++; break;
-        case 7 : set_lpower = 20; set_rpower = 10; i++; break;
+        case 7 : set_lpower = 20; set_rpower = 10; i=1; break;
     }
 
     //モーター出力
