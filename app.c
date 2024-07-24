@@ -1,5 +1,5 @@
 #include "app.h"
-#include "motor_test.h"
+// #include "motor_test.h"
 #include <stdio.h>
 
 /* メインタスク(起動時にのみ関数コールされる) */
@@ -19,17 +19,18 @@ void main_task(intptr_t unused) {
     printf("Start MainTask!!\n");
     
     /* motor_test.c のタスクを呼ぶ */
-    sta_cyc(MOTORLOG_TASK_CYC);
-    sta_cyc(GOETROBO_TASK_CYC);
+    // sta_cyc(MOTORLOG_TASK_CYC);
+    // sta_cyc(GOETROBO_TASK_CYC);
     
     /* タスク終了 */
     ext_tsk();
 }
 
-void goetrobo_task(intptr_t exinf){
-    goetrobo(left_motor,right_motor);
-}
-
-void motorlog_task(intptr_t exinf){
-    motorLog(left_motor,right_motor);
-    }
+//motor_test関数呼びたし
+// void goetrobo_task(intptr_t exinf){
+//     goetrobo(left_motor,right_motor);
+// }
+// 
+// void motorlog_task(intptr_t exinf){
+//     motorLog(left_motor,right_motor);
+//     }

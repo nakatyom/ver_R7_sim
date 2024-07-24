@@ -12,8 +12,8 @@ extern "C" {
 
 /* タスク周期の定義 */
 #define LINE_TRACER_PERIOD  (100 * 1000) /* ライントレースタスク:100msec周期 */
-#define MOTORLOG_PERIOD  (1000 * 1000) //モーターAPIのログタスク:1000msec周期
-#define GOETROBO_PERIOD (100 * 1000) //モーター駆動タスク:100msec周期
+// #define MOTORLOG_PERIOD  (1000 * 1000) //motor_test モーターAPIのログタスク:1000msec周期
+// #define GOETROBO_PERIOD (100 * 1000) //motor_test モーター駆動タスク:100msec周期
 
 /* センサーポートの定義 */
 static const sensor_port_t
@@ -35,8 +35,10 @@ static const motor_port_t
 #ifndef TOPPERS_MACRO_ONLY
 
 extern void main_task(intptr_t exinf);
-extern void motorlog_task(intptr_t exinf);
-extern void goetrobo_task(intptr_t exinf);
+
+//motor_testタスク宣言
+// extern void motorlog_task(intptr_t exinf);
+// extern void goetrobo_task(intptr_t exinf);
 
 #endif /* TOPPERS_MACRO_ONLY */
 
