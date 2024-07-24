@@ -25,19 +25,19 @@ void main_task(intptr_t unused) {
 }
 
 
-uint8_t cnt;
+//uint8_t cnt;
 void naka_task(intptr_t unused){
-    
+    /*    
     cnt = cnt + 1; 
     if (cnt >= 250) {
         cnt = 0;
         drv_gyro_reset();
     }
-    printf("Main counter:%d\n",cnt);
+    printf("Main counter:%d\n",cnt);*/
 
     /* 左右モータ駆動パワーの設定 */
-    ev3_motor_set_power(left_motor, -90);
-    ev3_motor_set_power(right_motor, 90);
+    //ev3_motor_set_power(left_motor, -90);
+    //ev3_motor_set_power(right_motor, 90);
 
     // カラーセンサのテスト関数
     //drv_color_sensor();
@@ -49,6 +49,6 @@ void naka_task(intptr_t unused){
     //drv_get_ultrasonic();
 
     // ジャイロセンサのテスト関数
-    //drv_gyro_sensor();
+    drv_gyro_sensor();
 
 }
