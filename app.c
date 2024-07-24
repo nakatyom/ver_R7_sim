@@ -1,5 +1,5 @@
 #include "app.h"
-#include "zoudatest/motor_test.c"
+#include "motor_test.h"
 #include <stdio.h>
 
 /* メインタスク(起動時にのみ関数コールされる) */
@@ -27,9 +27,9 @@ void main_task(intptr_t unused) {
 }
 
 void goetrobo_task(intptr_t exinf){
-    goetrobo();
+    goetrobo(left_motor,right_motor);
 }
 
 void motorlog_task(intptr_t exinf){
-    motorLog();
+    motorLog(left_motor,right_motor);
     }
