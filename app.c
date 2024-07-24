@@ -49,6 +49,7 @@ void naka_task(intptr_t unused){
     //drv_get_ultrasonic();
 
     // ジャイロセンサのテスト関数
+    printf("call gyro___");
     drv_gyro_sensor();
 
 }
