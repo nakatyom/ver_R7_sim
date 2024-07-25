@@ -43,11 +43,11 @@ static int16_t steering_amount_calculation(void){
     /* カラーセンサ値の取得 */
     ev3_color_sensor_get_rgb_raw(color_sensor, &rgb_val);
 
-    int bright = getMaxRGBValue(rgb_val) / RGB_MAX;    //明度の割合
-    bright = bright * 100;  //明度の百分率
+    float32_t bright = (float32_t)getMaxRGBValue(rgb_val) / RGB_MAX;    //明度の割合
+    int now_bright = bright * 100;  //明度の百分率
 
     // 差分を計算
-    int diff = TAGE_BRIGHT - bright;
+    int diff = TAGE_BRIGHT - now_bright;
 
     // 加速分を計算
     int a = diff * 2; // 目標50%に対しての誤差なので2倍するといいんじゃね（適当）
@@ -56,6 +56,8 @@ static int16_t steering_amount_calculation(void){
     int b = 2 / a;
 
     // 誤差を蓄積
+    int cd = 0;
+    cd = c;
     c = c + diff;
 
     // 物は試し蓄積誤差を足すだけ
@@ -63,15 +65,23 @@ static int16_t steering_amount_calculation(void){
     steering_amount = a - b;
     steering_amount = steering_amount - c;
 
-    if(steering_amount >= 60){
+    steering_amount = steering_amount / 10;
+
+    if(c >= 80){
         c = -10;
         steering_amount = -10;
     }
-    else if(steering_amount <= -60){
+    else if(c <= -80){
         c = 10;
         steering_amount = 10;
     }
-    printf("a = %d \n b = %d \n c = %d \n steerring_amount = %d \n", a, b, c, steering_amount);
+
+    // if(cd > c){
+    //     c = 0;
+    // }
+    printf("c = %d \n steerring_amount = %d \n bright = %d \n now_bright = %d \n rgb_val.r = %d \n", c, steering_amount, bright, now_bright, rgb_val.r);
+    
+
     /*__________________________今日はここまで_____________________________________*/
 
     
@@ -122,7 +132,27 @@ static int16_t steering_amount_calculation(void){
        kasoku = d - c
 
     8. 加速度から制御量を計算
-       
+
+
+    完全コースアウトした場合の対処
+    1. ラインを見つける
+        90° 回転
+        直進
+        90° 回転
+        直進
+        90° 回転
+        直進
+        90° 回転
+        直進
+        //ここでいったん初期位置,ただし逆向き
+        直進
+        90° 回転
+        直進
+        90° 回転
+        直進
+        90° 回転
+        直進
+        元に戻る
 
     */
 
@@ -134,8 +164,8 @@ static void motor_drive_control(int16_t steering_amount){
     int left_motor_power, right_motor_power; /*左右モータ設定パワー*/
 
     /* 左右モータ駆動パワーの計算(走行エッジを右にする場合はRIGHT_EDGEに書き換えること) */
-    left_motor_power  = (int)(BASE_SPEED + (steering_amount * LEFT_EDGE));
-    right_motor_power = (int)(BASE_SPEED - (steering_amount * LEFT_EDGE));
+    left_motor_power  = (int)(BASE_SPEED + (steering_amount * RIGHT_EDGE));
+    right_motor_power = (int)(BASE_SPEED - (steering_amount * RIGHT_EDGE));
 
     /* 左右モータ駆動パワーの設定 */
     ev3_motor_set_power(left_motor, left_motor_power);

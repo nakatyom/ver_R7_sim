@@ -15,9 +15,10 @@ extern int c = 0;
 
 /* 下記の項目は各ロボットに合わせて変えること */
 // RGBの最大値255
-#define RGB_MAX 255
+#define RGB_MAX 255.0F
 
-#define TAGE_BRIGHT 50
+// 目標明度
+#define TAGE_BRIGHT 60
 
 /* カラーセンサの輝度設定 */
 // #define WHITE_BRIGHTNESS  (180)
@@ -27,7 +28,7 @@ extern int c = 0;
 // #define STEERING_COEF     (0.2F) 
 
 /* 走行基準スピード */
-#define BASE_SPEED 20
+#define BASE_SPEED 5
 
 /* ライントレースエッジ切り替え */
 #define LEFT_EDGE -1
