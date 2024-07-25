@@ -1,11 +1,7 @@
 #include <stdio.h>
 #include "app.h"
 #include "ev3api.h"
-#include "color_sensor.h"
 #include "port_settings.h"
-
-
-
 
 /* センサ及びモーターの共通API定義 
    本関数は、固定となる。*/

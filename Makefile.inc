@@ -1,10 +1,10 @@
 mkfile_path := $(dir $(lastword $(MAKEFILE_LIST)))
 
 APPL_COBJS +=\
-color_sensor.o\
 port_settings.o\
-ultrasonic_sensor.o\
-gyro_sensor.o
+linetrace.o
+
+
 
 APPL_LIBS += -lm
 APPL_DIRS += \
