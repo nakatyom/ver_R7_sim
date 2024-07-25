@@ -35,7 +35,10 @@ static int16_t steering_amount_calculation(void){
 //    uint16_t  target_brightness; /* 目標輝度値 */
 //    float32_t diff_brightness;   /* 目標輝度との差分値 */
 //    int16_t   steering_amount;   /* ステアリング操舵量 */
-    rgb_raw_t rgb_val = 0;           /* カラーセンサ取得値 */
+    rgb_raw_t rgb_val;           /* カラーセンサ取得値 */
+    rgb_val.r = 0;
+    rgb_val.g = 0;
+    rgb_val.b = 0;
 
     /* カラーセンサ値の取得 */
     ev3_color_sensor_get_rgb_raw(color_sensor, &rgb_val);
@@ -50,10 +53,9 @@ static int16_t steering_amount_calculation(void){
     int a = diff * 2; // 目標50%に対しての誤差なので2倍するといいんじゃね（適当）
 
     // 押さえつけ力を計算
-    int b = 2 / a
+    int b = 2 / a;
 
     // 誤差を蓄積
-    int c = 0;
     c = c + diff;
 
     // 物は試し蓄積誤差を足すだけ
@@ -61,6 +63,15 @@ static int16_t steering_amount_calculation(void){
     steering_amount = a - b;
     steering_amount = steering_amount - c;
 
+    if(steering_amount >= 60){
+        c = -10;
+        steering_amount = -10;
+    }
+    else if(steering_amount <= -60){
+        c = 10;
+        steering_amount = 10;
+    }
+    printf("a = %d \n b = %d \n c = %d \n steerring_amount = %d \n", a, b, c, steering_amount);
     /*__________________________今日はここまで_____________________________________*/
 
     
@@ -123,8 +134,8 @@ static void motor_drive_control(int16_t steering_amount){
     int left_motor_power, right_motor_power; /*左右モータ設定パワー*/
 
     /* 左右モータ駆動パワーの計算(走行エッジを右にする場合はRIGHT_EDGEに書き換えること) */
-    left_motor_power  = (int)(BASE_SPEED + (steering_amount * RIGHT_EDGE));
-    right_motor_power = (int)(BASE_SPEED - (steering_amount * RIGHT_EDGE));
+    left_motor_power  = (int)(BASE_SPEED + (steering_amount * LEFT_EDGE));
+    right_motor_power = (int)(BASE_SPEED - (steering_amount * LEFT_EDGE));
 
     /* 左右モータ駆動パワーの設定 */
     ev3_motor_set_power(left_motor, left_motor_power);

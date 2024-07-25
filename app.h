@@ -11,7 +11,7 @@ extern "C" {
 // #define MOTORLOG_PRIORITY  (TMIN_APP_TPRI + 4) //モーターAPIのログ出力タスク 
 
 /* タスク周期の定義 */
-#define LINE_TRACER_PERIOD  (100 * 1000) /* ライントレースタスク:100msec周期 */
+#define LINE_TRACER_PERIOD  (1000 * 1000) /* ライントレースタスク:1000msec周期 */
 // #define MOTORLOG_PERIOD  (1000 * 1000) //motor_test モーターAPIのログタスク:1000msec周期
 // #define GOETROBO_PERIOD (100 * 1000) //motor_test モーター駆動タスク:100msec周期
 
@@ -37,7 +37,7 @@ static const motor_port_t
 extern void main_task(intptr_t exinf);
 
 // Line.cタスク宣言
-extern void line_task(intptr_t exinf);
+extern void tracer_task(intptr_t exinf);
 
 //motor_testタスク宣言
 // extern void motorlog_task(intptr_t exinf);

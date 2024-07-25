@@ -10,6 +10,9 @@ static uint16_t getMaxRGBValue(rgb_raw_t);
 
 extern void tracer_task(intptr_t unused);
 
+// グローバル変数宣言
+extern int c = 0;
+
 /* 下記の項目は各ロボットに合わせて変えること */
 // RGBの最大値255
 #define RGB_MAX 255
@@ -24,7 +27,7 @@ extern void tracer_task(intptr_t unused);
 // #define STEERING_COEF     (0.2F) 
 
 /* 走行基準スピード */
-#define BASE_SPEED 40 
+#define BASE_SPEED 20
 
 /* ライントレースエッジ切り替え */
 #define LEFT_EDGE -1
