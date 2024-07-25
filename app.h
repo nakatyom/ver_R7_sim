@@ -7,8 +7,8 @@ extern "C" {
 // タスク優先度 
 #define MAIN_PRIORITY    (TMIN_APP_TPRI + 1) /* メインタスク */
 #define TRACER_PRIORITY  (TMIN_APP_TPRI + 2) /* ライントレースタスク */
-#define GOETROBO_PRIORITY (TMIN_APP_TPRI + 3) //モーター駆動タスク
-#define MOTORLOG_PRIORITY  (TMIN_APP_TPRI + 4) //モーターAPIのログ出力タスク 
+// #define GOETROBO_PRIORITY (TMIN_APP_TPRI + 3) //モーター駆動タスク
+// #define MOTORLOG_PRIORITY  (TMIN_APP_TPRI + 4) //モーターAPIのログ出力タスク 
 
 /* タスク周期の定義 */
 #define LINE_TRACER_PERIOD  (100 * 1000) /* ライントレースタスク:100msec周期 */
@@ -35,6 +35,9 @@ static const motor_port_t
 #ifndef TOPPERS_MACRO_ONLY
 
 extern void main_task(intptr_t exinf);
+
+// Line.cタスク宣言
+extern void line_task(intptr_t exinf);
 
 //motor_testタスク宣言
 // extern void motorlog_task(intptr_t exinf);

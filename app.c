@@ -18,6 +18,9 @@ void main_task(intptr_t unused) {
     
     printf("Start MainTask!!\n");
     
+    // Trace on!! 
+    sta_cyc(LINE_TASK_CYC);
+
     /* motor_test.c のタスクを呼ぶ */
     // sta_cyc(MOTORLOG_TASK_CYC);
     // sta_cyc(GOETROBO_TASK_CYC);
