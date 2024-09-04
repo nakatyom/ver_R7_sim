@@ -19,8 +19,10 @@ const float motor_sync = 1.0;
 
 /* static functions */
 void delay_connect_m(int milliseconds){
+    /* Timer系はシュミレーターでは、使えない。。。
     clock_t start_time = clock();
     while(clock() < start_time + milliseconds);
+    */
 }
 
 /* extern functions */
@@ -37,10 +39,12 @@ extern int32_t motor_get_counts(motor_port_t port){
     crnt_enc[port] = ev3_motor_get_counts(port);
 
     // 通信遅れ判定の場合、1ms待って再取得
+    /*
     if(crnt_enc[port] == pre_enc[port] && (pre_power[port] != 0 || crnt_power[port] != 0)){ // 前回値と一致かつモーターパワーが0でない
             delay_connect_m(1); // 1ms待つ
             crnt_enc[port] = ev3_motor_get_counts(port);
     }
+    */
     
     
     return crnt_enc[port];
@@ -57,6 +61,8 @@ extern int32_t motor_get_pre_counts(motor_port_t port){
 
 extern void motor_reset_counts(motor_port_t port){
     ev3_motor_reset_counts(port);
+    crnt_enc[port] = 0;
+    pre_enc[port]  = 0;
     return;
 }
 

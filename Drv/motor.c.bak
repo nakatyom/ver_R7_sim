@@ -41,7 +41,8 @@ extern int32_t motor_get_counts(motor_port_t port){
             delay_connect_m(1); // 1ms待つ
             crnt_enc[port] = ev3_motor_get_counts(port);
     }
-
+    
+    
     return crnt_enc[port];
 }
 

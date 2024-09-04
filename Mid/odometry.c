@@ -11,7 +11,7 @@
 struct coordinate pre_coordinate  = {0.0, 0.0, 0.0};
 
 int   straight_threshold = 2; //直進時のモータ角度誤差許容範囲
-float delta_theta_thresshold = 0.0;
+float delta_theta_thresshold = 10.0;
 
 
 /* external functions */
@@ -38,33 +38,31 @@ void get_crntCoordinate(struct coordinate* crnt_coordinate){
         //ロボットの移動距離
         delta_L = 0.0;
 
-        // 旋回量の計算(左右移動量の平均をwheel_dis/2で割る)
-        delta_rad = (abs(delta_LL)+abs(delta_LR))/(float)whell_dist;
+        // 旋回量の計算
+        delta_rad = abs(delta_LL - delta_LR) / (float)wheel_dist;
         
-        if(delta_LL < delta_LR){
+        if(delta_LL > delta_LR){
             delta_rad *= -1;
         }
-
     }
     else { //直進・曲進している
         //ロボットの移動距離
         delta_L = (delta_LL + delta_LR)/(float)2.0;
 
-        if( (abs(delta_LL)-abs(delta_LR)) < (47.0*3.141592*straight_threshold/180.0) ){ //直進している
+        if( abs(delta_LL-delta_LR) < ((wheel_size/2)*3.141592*straight_threshold/180.0) ){ //直進している
             //ロボットの旋回量
             delta_rad = 0.0;
 
         }
         else { //曲進している
             //ロボットの旋回量
-            delta_rad = (delta_LL - delta_LR) / (float)whell_dist;
+            delta_rad = (delta_LL - delta_LR) / (float)wheel_dist;
 
-            if(delta_rad > delta_theta_thresshold){ //delta_thetaが大きい
+            if(abs(delta_rad) > delta_theta_thresshold){ //delta_thetaが大きい
                 delta_L = 2 * (delta_L / delta_rad) * sin(delta_rad / 2);
+                printf("BBB, ");
             }
-
         }
-
     }
 
 

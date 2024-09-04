@@ -1,9 +1,11 @@
 #include <stdio.h>
+#include <math.h>
 
 #include "app.h"
 #include "ev3api.h"
 #include "port.h"
 #include "odometry.h"
+#include "smartCarry.h"
 
 /* メインタスク(起動時にのみ関数コールされ�?) */
 void main_task(intptr_t unused) {
@@ -19,16 +21,45 @@ void main_task(intptr_t unused) {
     ext_tsk();
 }
 
+int cnt=0;
 void boss_task(intptr_t exinf){
-    // struct coordinate crnt = {0.0, 0.0, 0.0};
-    // get_crntCoordinate(&crnt);
+    struct coordinate crnt = {0.0, 0.0, 0.0};
+    int angle = 45;
+    int now_angle = 0;
+    get_crntCoordinate(&crnt);
+    printf("x=%f, y=%f, theta=%f\n",crnt.x, crnt.y, crnt.theta);
 
-    // printf("x=%f, y=%f, theta=%f\n",crnt.x, crnt.y,crnt.theta);
 
-    int32_t lm = motor_get_counts(left_motor);
-    int32_t rm = motor_get_counts(right_motor);
-    printf("%d, %d\n",lm, rm);
-
-    // int16_t angle = gyro_sensor_get_angle()
+    
+    if (cnt == 0){
+        //angle = (int)calc_angle(100.0,100.0);
+        cnt = cnt + 1;
+    }
+    else if (cnt == 1){
+        now_angle = (int)crnt.theta;
+        
+        //printf("比較角度(現在( %f° ):目標( %f° )\n",now_angle,angle);
+        if (now_angle < angle){
+            ev3_motor_set_power(left_motor,  -8);
+            ev3_motor_set_power(right_motor, 8);
+            printf("処理：分岐１");
+            printf("比較角度(現在( %d° ):目標( %d° )\n",now_angle,angle);
+        }
+        else if (now_angle > angle){
+            ev3_motor_set_power(left_motor,  8);
+            ev3_motor_set_power(right_motor, -8);
+            printf("処理：分岐２");
+            printf("比較角度(現在( %d° ):目標( %d° )\n",now_angle,angle);
+        }else{
+            printf("角度調整完了");
+            cnt = cnt + 1;
+            ev3_motor_set_power(left_motor,  0);
+            ev3_motor_set_power(right_motor, 0);
+        }
+    }else{
+            ev3_motor_set_power(left_motor,  0);
+            ev3_motor_set_power(right_motor, 0);
+    }
+    
 
 }
