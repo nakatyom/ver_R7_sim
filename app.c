@@ -28,9 +28,10 @@ void boss_task(intptr_t exinf){
     int now_angle = 0;
     get_crntCoordinate(&crnt);
     printf("x=%f, y=%f, theta=%f\n",crnt.x, crnt.y, crnt.theta);
+    ev3_motor_set_power(left_motor,  -5);
+    ev3_motor_set_power(right_motor, 5);
 
-
-    
+    /*
     if (cnt == 0){
         //angle = (int)calc_angle(100.0,100.0);
         cnt = cnt + 1;
@@ -60,6 +61,7 @@ void boss_task(intptr_t exinf){
             ev3_motor_set_power(left_motor,  0);
             ev3_motor_set_power(right_motor, 0);
     }
+    */
     
 
 }

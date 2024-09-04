@@ -75,7 +75,6 @@ extern void motor_set_power(motor_port_t port, int power){
     if(port == left_motor){
          power = (int)(motor_sync * power);
     }
-    
     // パワーを設定
     ev3_motor_set_power(port, power);
 
