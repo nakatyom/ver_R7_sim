@@ -34,6 +34,7 @@ extern int16_t gyro_sensor_get_angle(sensor_port_t port){
 
     // 現在値の取得
     crnt_angle = ev3_gyro_sensor_get_angle(port);
+    //printf("crnt_angle = %d\n",ev3_gyro_sensor_get_angle(port));
 
     // 通信遅れ判定の場合、1ms待って再取得
     if(crnt_angle == pre_angle){ // 前回値と一致

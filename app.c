@@ -21,34 +21,47 @@ void main_task(intptr_t unused) {
     ext_tsk();
 }
 
+bool_t toch_flg = false;
 int cnt=0;
+
 void boss_task(intptr_t exinf){
     struct coordinate crnt = {0.0, 0.0, 0.0};
     int angle = 45;
     int now_angle = 0;
     get_crntCoordinate(&crnt);
+    toch_flg = ev3_touch_sensor_is_pressed(touch_sensor);
+    //printf("x=%f, y=%f, theta=%f\n",crnt.x, crnt.y, crnt.theta);
     printf("x=%f, y=%f, theta=%f\n",crnt.x, crnt.y, crnt.theta);
-    ev3_motor_set_power(left_motor,  -5);
-    ev3_motor_set_power(right_motor, 5);
 
-    /*
-    if (cnt == 0){
-        //angle = (int)calc_angle(100.0,100.0);
-        cnt = cnt + 1;
+
+
+    if (crnt.x >=300.0f){
+        ev3_motor_set_power(left_motor,  -15);
+        ev3_motor_set_power(right_motor, 15);
     }
+    else if(crnt.x >=200.0f && crnt.x <=300.0f){
+        ev3_gyro_sensor_reset(gyro_sensor);
+    }
+    else{
+        ev3_motor_set_power(left_motor,  15);
+        ev3_motor_set_power(right_motor, -15);
+    }
+/*
+    
     else if (cnt == 1){
         now_angle = (int)crnt.theta;
-        
         //printf("比較角度(現在( %f° ):目標( %f° )\n",now_angle,angle);
         if (now_angle < angle){
             ev3_motor_set_power(left_motor,  -8);
             ev3_motor_set_power(right_motor, 8);
+            
             printf("処理：分岐１");
             printf("比較角度(現在( %d° ):目標( %d° )\n",now_angle,angle);
         }
         else if (now_angle > angle){
             ev3_motor_set_power(left_motor,  8);
             ev3_motor_set_power(right_motor, -8);
+            
             printf("処理：分岐２");
             printf("比較角度(現在( %d° ):目標( %d° )\n",now_angle,angle);
         }else{
@@ -60,8 +73,8 @@ void boss_task(intptr_t exinf){
     }else{
             ev3_motor_set_power(left_motor,  0);
             ev3_motor_set_power(right_motor, 0);
-    }
-    */
+    }*/
+    
     
 
 }
