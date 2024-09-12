@@ -1,7 +1,7 @@
 #ifndef _LINETRACE_H
 #define _LINETRACE_H
 
-/* external functions*/
-extern void linetrace();
+/* extern function */
+extern void linetrace(void);
 
-#endif /* _LINETRACE_H */
+#endif	// _LINETRACE_H

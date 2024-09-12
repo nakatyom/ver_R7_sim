@@ -1,44 +1,38 @@
+#include <stdio.h>
+
 #include "ev3api.h"
 #include "port.h"
+#include "velocity_control.h"
+#include "linetrace.h"
 
-const int lr_sw = -1; // L_COURSE:1, R_COURSE:-1
-const float KP = 0.7;
-const float KD = 0.3;
-int BASE = 40;        // base speed
-const u_int8_t target = 60;
 
-int pre_err = 0;
-float motor_compensater = 0.92;
+float mid_PID_line_pos(float tag, float maj){ 
 
-void linetrace(){
+    const float kp = 0.20f;
+    const float ki = 0.02f;
+    const float kd = 0.0f;
 
-    /* 反射強度の取得 */
-    u_int8_t crnt = ev3_color_sensor_get_reflect(color_sensor);
+    static float intg;
+    static float err_pre;
+    static float err;
+     
+    err_pre = err;
+    err = tag - maj;
+    intg += err;
 
-    /* err計算 */
-    int err = target - crnt;
+    if (intg > 1000.0f)    intg = 1000.0f;
+    if (intg < -1000.0f)   intg = -1000.0f;
 
-    int out;
-    if(err >= 5 || err <= -5){
-        /* P or PD計算 */
-        //int out = (int)( KP * err );
-        out = (int)( KP * err + KD * (err-pre_err) );
-    }
-    else{
-        /*補正ゼロ(直進する)*/
-        out = 0;
-    }
-    pre_err = err;
+    return ((err * kp) + (intg * ki) + ((err - err_pre) * kd));
+}
 
-    /* パワー計算 */
-    int left_power  = BASE + lr_sw * out;
-    int right_power = BASE - lr_sw * out;
 
-    /* モータ出力 */
-    left_power = (int)(motor_compensater * left_power);
-    ev3_motor_set_power(left_motor, left_power);
-    ev3_motor_set_power(right_motor, right_power);
+void linetrace(void){
 
-    printf("%d, %d : ", crnt, err);
-    printf("%d, %d\n", left_power, right_power);
+    int reflection = ev3_color_sensor_get_reflect(color_sensor);
+
+    float velo_rot_target = mid_PID_line_pos(55.0f, (float)reflection);
+
+    mid_velocity_control(80.0f, -velo_rot_target);
+//    mid_velocity_control(50.0f, 0.0f);  // debug
 }

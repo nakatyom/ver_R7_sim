@@ -12,4 +12,7 @@ extern int  motor_get_power(motor_port_t port);
 extern int  motor_get_pre_power(motor_port_t port);
 extern void motor_stop(motor_port_t port);
 
+/* using_sensor_task */
+extern void motor_update(motor_port_t port);
+
 #endif /* _MOTOR_H */
